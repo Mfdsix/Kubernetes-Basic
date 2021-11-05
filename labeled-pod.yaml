@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: server2-pod
+  labels:
+    appName: nginx
+    author: mfdsix
+    instagram: secret
+spec:
+  containers:
+    - name: nginx-server
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+    - name: redis-db
+      image: redis:latest
+      ports:
+        - containerPort: 6379
