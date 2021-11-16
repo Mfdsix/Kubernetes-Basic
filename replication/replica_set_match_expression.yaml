@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicaSet
+metadata:
+  name: replica-set-match-ex
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: environment
+        operator: In
+        values:
+          - development
+          - staging
+          - production
+  template:
+    metadata:
+      name: replica-set-match-ex-pod
+      labels:
+        environment: development
+    spec:
+      containers:
+        - name: nginx-server
+          image: nginx:latest
+          ports:
+            - containerPort: 80
