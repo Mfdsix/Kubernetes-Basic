@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-1
+spec:
+  completion: 5 # define how much run app process, default 1
+  parallelism: 2 # define how much parallel process can be run, default 1
+  selector:
+    matchLabels:
+      environment: production
+  template:
+    metadata:
+      name: pod-1
+    spec:
+      restartPolicy: Never # must be set to Never
+      containers:
+        - name: nginx-server
+          image: nginx:latest
+          ports:
+            - containerPort: 80
