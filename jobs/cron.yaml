@@ -1,0 +1,23 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-job-1
+spec:
+  schedule: "* * * * *" # executed every minutes
+  jobTemplate:
+    spec:
+      selector:
+        matchLabels:
+          environment: production
+      template:
+        metadata:
+          name: pod-1
+          labels:
+            environment: production
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: nginx-server
+              image: nginx:latest
+              ports:
+                - containerPort: 80

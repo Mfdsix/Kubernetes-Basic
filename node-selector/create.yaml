@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-selector-1
+spec:
+  nodeSelector:
+    gpu: "yes"
+    cpu: "ryzen7"
+  containers:
+    - name: nginx-server
+      image: nginx:latest
+      ports:
+        -containerPort: 80
