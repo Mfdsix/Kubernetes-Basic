@@ -1,0 +1,46 @@
+# creating replica sets
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica-set-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      appName: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        appName: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+
+---
+# creating service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-1
+spec:
+  selector:
+    appName: nginx # label used in pod
+  ports:
+    - post: 8080
+      targetPort: 80
+
+---
+# add curl pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-curl
+spec:
+  containers:
+    - name: curl-container
+      image: your-repo/curl
